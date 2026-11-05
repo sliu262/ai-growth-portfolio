@@ -1,0 +1,448 @@
+<!doctype html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>AI成长组合 · 月度追踪</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@400;600&family=Noto+Serif+SC:wght@400&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+:root{--color-fg:#1c2230;--color-fg-muted:#5d6577;--color-bg:#f6f7f9;--color-panel:#ffffff;--color-border-line:#e1e4ea;--color-ok:#1f8a4c;--color-warn:#b86e00;--color-bad:#c53b3b;
+--cds-chart-grid:#e9ecf1;--cds-chart-axis:#b7bdc8;--cds-chart-muted:#b8bfcc;--cds-chart-reference:#8a93a3;--cds-surface-popover:#ffffff;--cds-border:#d6dae2;--cds-shadow-popover:0 4px 16px rgba(20,30,50,.12);--cds-text-secondary:#5d6577;
+--cds-radius:8px;--cds-pad-xs:4px;--cds-pad-sm:8px;--cds-pad-md:12px;--cds-pad-lg:16px;--cds-gap-xs:4px;--cds-gap-sm:8px;--cds-gap-md:16px;--cds-gap-lg:24px;--cds-gap-xl:36px;
+--cds-font-size-caption:12px;--cds-font-size-body:15px;--cds-font-size-heading:18px;--cds-font-size-title:30px;--cds-font-weight-medium:600;--cds-dur-slow:.3s;
+--font-anthropic-sans:"Noto Sans SC","PingFang SC","Microsoft YaHei",system-ui,sans-serif;--font-anthropic-serif:"Noto Serif SC","Songti SC",Georgia,serif;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--color-fg:#e6e9ef;--color-fg-muted:#9aa3b2;--color-bg:#12151b;--color-panel:#1a1e26;--color-border-line:#2b313c;--color-ok:#4cc38a;--color-warn:#e3a33b;--color-bad:#f07272;--cds-chart-grid:#262c36;--cds-chart-axis:#4a5260;--cds-chart-muted:#4f5868;--cds-chart-reference:#7d8696;--cds-surface-popover:#1f242d;--cds-border:#363d49;--cds-text-secondary:#9aa3b2;color-scheme:dark}}
+html,body{margin:0;background:var(--color-bg);color:var(--color-fg);font-family:var(--font-anthropic-sans)}
+#dash-root{padding:28px max(16px,env(safe-area-inset-left,0px)) 48px max(16px,env(safe-area-inset-right,0px))}
+.ait th{background:var(--color-panel)}
+</style>
+<script>
+window.__DATA__={"gp_targets": [{"effective": "2026-11-03", "ticker": "DELL", "name": "Dell", "niche": "AI服务器", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 408.4, "weight": 0.086, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "300502.SZ", "name": "新易盛", "niche": "光模块", "ccy": "CNY", "entry_date": "2026-11-03", "entry_close": 173.36, "weight": 0.086, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "ALAB", "name": "Astera Labs", "niche": "AI互连芯片", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 233.62, "weight": 0.074, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "LITE", "name": "Lumentum", "niche": "磷化铟激光器", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 680.16, "weight": 0.077, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "MU", "name": "美光", "niche": "HBM存储", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 855.1, "weight": 0.086, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "NVDA", "name": "英伟达", "niche": "AI芯片", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 206.69, "weight": 0.15, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "LRCX", "name": "Lam Research", "niche": "半导体设备", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 230.72, "weight": 0.105, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "TLN", "name": "Talen", "niche": "核电/电力", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 357.28, "weight": 0.134, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "CLS", "name": "Celestica", "niche": "AI硬件制造", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 259.94, "weight": 0.094, "scheme": "逆波动率，单只上限15%"}, {"effective": "2026-11-03", "ticker": "VRT", "name": "Vertiv", "niche": "液冷/电源", "ccy": "USD", "entry_date": "2026-11-03", "entry_close": 235.97, "weight": 0.108, "scheme": "逆波动率，单只上限15%"}], "gp_snapshots": [{"date": "2026-11-03", "ticker": "DELL", "name": "Dell", "kind": "持仓", "close": 408.4}, {"date": "2026-11-03", "ticker": "300502.SZ", "name": "新易盛", "kind": "持仓", "close": 173.36}, {"date": "2026-11-03", "ticker": "ALAB", "name": "Astera Labs", "kind": "持仓", "close": 233.62}, {"date": "2026-11-03", "ticker": "LITE", "name": "Lumentum", "kind": "持仓", "close": 680.16}, {"date": "2026-11-03", "ticker": "MU", "name": "美光", "kind": "持仓", "close": 855.1}, {"date": "2026-11-03", "ticker": "NVDA", "name": "英伟达", "kind": "持仓", "close": 206.69}, {"date": "2026-11-03", "ticker": "LRCX", "name": "Lam Research", "kind": "持仓", "close": 230.72}, {"date": "2026-11-03", "ticker": "TLN", "name": "Talen", "kind": "持仓", "close": 357.28}, {"date": "2026-11-03", "ticker": "CLS", "name": "Celestica", "kind": "持仓", "close": 259.94}, {"date": "2026-11-03", "ticker": "VRT", "name": "Vertiv", "kind": "持仓", "close": 235.97}, {"date": "2026-11-03", "ticker": "^NDX", "name": "纳斯达克100", "kind": "基准", "close": 28180.3}, {"date": "2026-11-03", "ticker": "^SOX", "name": "费城半导体", "kind": "基准", "close": 10600.4}, {"date": "2026-11-03", "ticker": "ACWI", "name": "MSCI ACWI", "kind": "基准", "close": 155.87}], "gp_signals": [{"date": "2026-11-03", "ticker": "DELL", "name": "Dell", "eps90": 0.452, "px90": -0.066, "gap": 0.518, "rev_growth": 0.577, "fpe": 13.5, "vol": 0.889, "rank": 3, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "300502.SZ", "name": "新易盛", "eps90": 0.381, "px90": -0.591, "gap": 0.972, "rev_growth": 0.803, "fpe": 5.5, "vol": 0.891, "rank": 1, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "ALAB", "name": "Astera Labs", "eps90": 0.301, "px90": -0.295, "gap": 0.596, "rev_growth": 1.045, "fpe": 35.9, "vol": 1.031, "rank": 6, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "LITE", "name": "Lumentum", "eps90": 0.274, "px90": -0.188, "gap": 0.462, "rev_growth": 1.365, "fpe": 17.4, "vol": 0.988, "rank": 7, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "MU", "name": "美光", "eps90": 0.245, "px90": -0.03, "gap": 0.275, "rev_growth": 3.793, "fpe": 4.1, "vol": 0.893, "rank": 4, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "NVDA", "name": "英伟达", "eps90": 0.242, "px90": -0.055, "gap": 0.297, "rev_growth": 1.059, "fpe": 13, "vol": 0.38, "rank": 5, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "LRCX", "name": "Lam Research", "eps90": 0.205, "px90": -0.245, "gap": 0.45, "rev_growth": 0.544, "fpe": 18.9, "vol": 0.728, "rank": 8, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "TLN", "name": "Talen", "eps90": 0.121, "px90": 0.056, "gap": 0.065, "rev_growth": 1.112, "fpe": 12.9, "vol": 0.576, "rank": 22, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "CLS", "name": "Celestica", "eps90": 0.114, "px90": -0.174, "gap": 0.288, "rev_growth": 0.825, "fpe": 11.7, "vol": 0.816, "rank": 10, "universe": 45, "flag": "正常"}, {"date": "2026-11-03", "ticker": "VRT", "name": "Vertiv", "eps90": 0.075, "px90": -0.142, "gap": 0.217, "rev_growth": 0.612, "fpe": 24.2, "vol": 0.708, "rank": 28, "universe": 45, "flag": "正常"}], "gp_risk": [{"ticker": "DELL", "name": "Dell", "vol": 0.889, "w_eq": 0.1, "w_iv": 0.086, "rc_eq": 0.098, "rc_iv": 0.089}, {"ticker": "300502.SZ", "name": "新易盛", "vol": 0.891, "w_eq": 0.1, "w_iv": 0.086, "rc_eq": 0.079, "rc_iv": 0.07}, {"ticker": "ALAB", "name": "Astera Labs", "vol": 1.031, "w_eq": 0.1, "w_iv": 0.074, "rc_eq": 0.145, "rc_iv": 0.113}, {"ticker": "LITE", "name": "Lumentum", "vol": 0.988, "w_eq": 0.1, "w_iv": 0.077, "rc_eq": 0.138, "rc_iv": 0.113}, {"ticker": "MU", "name": "美光", "vol": 0.893, "w_eq": 0.1, "w_iv": 0.086, "rc_eq": 0.126, "rc_iv": 0.114}, {"ticker": "NVDA", "name": "英伟达", "vol": 0.38, "w_eq": 0.1, "w_iv": 0.15, "rc_eq": 0.041, "rc_iv": 0.068}, {"ticker": "LRCX", "name": "Lam Research", "vol": 0.728, "w_eq": 0.1, "w_iv": 0.105, "rc_eq": 0.111, "rc_iv": 0.125}, {"ticker": "TLN", "name": "Talen", "vol": 0.576, "w_eq": 0.1, "w_iv": 0.134, "rc_eq": 0.063, "rc_iv": 0.092}, {"ticker": "CLS", "name": "Celestica", "vol": 0.816, "w_eq": 0.1, "w_iv": 0.094, "rc_eq": 0.105, "rc_iv": 0.105}, {"ticker": "VRT", "name": "Vertiv", "vol": 0.708, "w_eq": 0.1, "w_iv": 0.108, "rc_eq": 0.094, "rc_iv": 0.11}], "gp_riskmetrics": [{"scheme": "等权", "vol": 0.578, "maxdd": -0.311}, {"scheme": "逆波动率（采用）", "vol": 0.543, "maxdd": -0.292}, {"scheme": "纳斯达克100", "vol": 0.222, "maxdd": -0.113}, {"scheme": "费城半导体", "vol": 0.541, "maxdd": -0.294}, {"scheme": "MSCI ACWI", "vol": 0.133, "maxdd": -0.048}], "gp_history": [{"date": "2026-05-08", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 107.5}, {"date": "2026-05-15", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 108.5}, {"date": "2026-05-22", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 113.7}, {"date": "2026-05-29", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 123}, {"date": "2026-06-05", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 118.6}, {"date": "2026-06-12", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 124.7}, {"date": "2026-06-26", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 127}, {"date": "2026-07-10", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 127.8}, {"date": "2026-07-17", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 115.2}, {"date": "2026-07-24", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 116.9}, {"date": "2026-07-31", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 110.7}, {"date": "2026-08-07", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 120.3}, {"date": "2026-08-14", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 126.4}, {"date": "2026-08-21", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 116.8}, {"date": "2026-08-28", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 115}, {"date": "2026-09-04", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 121.6}, {"date": "2026-09-11", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 121.6}, {"date": "2026-09-18", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 121.1}, {"date": "2026-09-25", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 126.8}, {"date": "2026-10-02", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 130.2}, {"date": "2026-10-09", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 129.8}, {"date": "2026-10-16", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 110.7}, {"date": "2026-10-23", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 102.7}, {"date": "2026-10-30", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 103.7}, {"date": "2026-11-03", "series": "IV", "label": "组合（建仓前，按目标权重回看）", "value": 100}, {"date": "2026-05-08", "series": "^NDX", "label": "纳斯达克100", "value": 103.7}, {"date": "2026-05-15", "series": "^NDX", "label": "纳斯达克100", "value": 103.4}, {"date": "2026-05-22", "series": "^NDX", "label": "纳斯达克100", "value": 104.6}, {"date": "2026-05-29", "series": "^NDX", "label": "纳斯达克100", "value": 107.6}, {"date": "2026-06-05", "series": "^NDX", "label": "纳斯达克100", "value": 102.8}, {"date": "2026-06-12", "series": "^NDX", "label": "纳斯达克100", "value": 105.2}, {"date": "2026-06-26", "series": "^NDX", "label": "纳斯达克100", "value": 103.3}, {"date": "2026-07-10", "series": "^NDX", "label": "纳斯达克100", "value": 105.8}, {"date": "2026-07-17", "series": "^NDX", "label": "纳斯达克100", "value": 101.5}, {"date": "2026-07-24", "series": "^NDX", "label": "纳斯达克100", "value": 99.8}, {"date": "2026-07-31", "series": "^NDX", "label": "纳斯达克100", "value": 100.3}, {"date": "2026-08-07", "series": "^NDX", "label": "纳斯达克100", "value": 105.5}, {"date": "2026-08-14", "series": "^NDX", "label": "纳斯达克100", "value": 106.6}, {"date": "2026-08-21", "series": "^NDX", "label": "纳斯达克100", "value": 104}, {"date": "2026-08-28", "series": "^NDX", "label": "纳斯达克100", "value": 104.4}, {"date": "2026-09-04", "series": "^NDX", "label": "纳斯达克100", "value": 104.8}, {"date": "2026-09-11", "series": "^NDX", "label": "纳斯达克100", "value": 104.2}, {"date": "2026-09-18", "series": "^NDX", "label": "纳斯达克100", "value": 105.2}, {"date": "2026-09-25", "series": "^NDX", "label": "纳斯达克100", "value": 108.6}, {"date": "2026-10-02", "series": "^NDX", "label": "纳斯达克100", "value": 109.3}, {"date": "2026-10-09", "series": "^NDX", "label": "纳斯达克100", "value": 109.6}, {"date": "2026-10-16", "series": "^NDX", "label": "纳斯达克100", "value": 103.6}, {"date": "2026-10-23", "series": "^NDX", "label": "纳斯达克100", "value": 102.8}, {"date": "2026-10-30", "series": "^NDX", "label": "纳斯达克100", "value": 100.7}, {"date": "2026-11-03", "series": "^NDX", "label": "纳斯达克100", "value": 100}, {"date": "2026-05-08", "series": "^SOX", "label": "费城半导体", "value": 111.1}, {"date": "2026-05-15", "series": "^SOX", "label": "费城半导体", "value": 109.3}, {"date": "2026-05-22", "series": "^SOX", "label": "费城半导体", "value": 115.1}, {"date": "2026-05-29", "series": "^SOX", "label": "费城半导体", "value": 121}, {"date": "2026-06-05", "series": "^SOX", "label": "费城半导体", "value": 115.3}, {"date": "2026-06-12", "series": "^SOX", "label": "费城半导体", "value": 126.1}, {"date": "2026-06-26", "series": "^SOX", "label": "费城半导体", "value": 124.6}, {"date": "2026-07-10", "series": "^SOX", "label": "费城半导体", "value": 122.3}, {"date": "2026-07-17", "series": "^SOX", "label": "费城半导体", "value": 110.1}, {"date": "2026-07-24", "series": "^SOX", "label": "费城半导体", "value": 111.5}, {"date": "2026-07-31", "series": "^SOX", "label": "费城半导体", "value": 106.7}, {"date": "2026-08-07", "series": "^SOX", "label": "费城半导体", "value": 116.6}, {"date": "2026-08-14", "series": "^SOX", "label": "费城半导体", "value": 117.1}, {"date": "2026-08-21", "series": "^SOX", "label": "费城半导体", "value": 110.8}, {"date": "2026-08-28", "series": "^SOX", "label": "费城半导体", "value": 108.2}, {"date": "2026-09-04", "series": "^SOX", "label": "费城半导体", "value": 110.7}, {"date": "2026-09-11", "series": "^SOX", "label": "费城半导体", "value": 111.5}, {"date": "2026-09-18", "series": "^SOX", "label": "费城半导体", "value": 112.5}, {"date": "2026-09-25", "series": "^SOX", "label": "费城半导体", "value": 119.5}, {"date": "2026-10-02", "series": "^SOX", "label": "费城半导体", "value": 123.9}, {"date": "2026-10-09", "series": "^SOX", "label": "费城半导体", "value": 118.6}, {"date": "2026-10-16", "series": "^SOX", "label": "费城半导体", "value": 105.1}, {"date": "2026-10-23", "series": "^SOX", "label": "费城半导体", "value": 101.7}, {"date": "2026-10-30", "series": "^SOX", "label": "费城半导体", "value": 100.8}, {"date": "2026-11-03", "series": "^SOX", "label": "费城半导体", "value": 100}, {"date": "2026-05-08", "series": "ACWI", "label": "MSCI ACWI", "value": 99}, {"date": "2026-05-15", "series": "ACWI", "label": "MSCI ACWI", "value": 98.2}, {"date": "2026-05-22", "series": "ACWI", "label": "MSCI ACWI", "value": 99.4}, {"date": "2026-05-29", "series": "ACWI", "label": "MSCI ACWI", "value": 101.1}, {"date": "2026-06-05", "series": "ACWI", "label": "MSCI ACWI", "value": 98.4}, {"date": "2026-06-12", "series": "ACWI", "label": "MSCI ACWI", "value": 99.7}, {"date": "2026-06-26", "series": "ACWI", "label": "MSCI ACWI", "value": 99}, {"date": "2026-07-10", "series": "ACWI", "label": "MSCI ACWI", "value": 101.2}, {"date": "2026-07-17", "series": "ACWI", "label": "MSCI ACWI", "value": 99.4}, {"date": "2026-07-24", "series": "ACWI", "label": "MSCI ACWI", "value": 99}, {"date": "2026-07-31", "series": "ACWI", "label": "MSCI ACWI", "value": 100.4}, {"date": "2026-08-07", "series": "ACWI", "label": "MSCI ACWI", "value": 103.6}, {"date": "2026-08-14", "series": "ACWI", "label": "MSCI ACWI", "value": 104.1}, {"date": "2026-08-21", "series": "ACWI", "label": "MSCI ACWI", "value": 103.2}, {"date": "2026-08-28", "series": "ACWI", "label": "MSCI ACWI", "value": 103.3}, {"date": "2026-09-04", "series": "ACWI", "label": "MSCI ACWI", "value": 103.9}, {"date": "2026-09-11", "series": "ACWI", "label": "MSCI ACWI", "value": 102.8}, {"date": "2026-09-18", "series": "ACWI", "label": "MSCI ACWI", "value": 102.2}, {"date": "2026-09-25", "series": "ACWI", "label": "MSCI ACWI", "value": 103.3}, {"date": "2026-10-02", "series": "ACWI", "label": "MSCI ACWI", "value": 102.7}, {"date": "2026-10-09", "series": "ACWI", "label": "MSCI ACWI", "value": 103.2}, {"date": "2026-10-16", "series": "ACWI", "label": "MSCI ACWI", "value": 101.2}, {"date": "2026-10-23", "series": "ACWI", "label": "MSCI ACWI", "value": 100.6}, {"date": "2026-10-30", "series": "ACWI", "label": "MSCI ACWI", "value": 100.1}, {"date": "2026-11-03", "series": "ACWI", "label": "MSCI ACWI", "value": 100}], "gp_log": [{"date": "2026-11-03", "action": "建仓", "detail": "10只成长股按逆波动率加权（单只上限15%）建仓，基于11月3日收盘价。等权方案下Astera Labs、Lumentum、美光三只合计贡献约41%的组合风险，改为逆波动率后组合年化波动率由57.8%降至54.3%。"}], "gp_universe": [{"rank": 1, "ticker": "300502.SZ", "score": 88.9, "eps90": 0.381, "px90": -0.591, "gap": 0.972, "rev_growth": 0.803, "fpe": 5.5, "held": "持有", "name": "新易盛"}, {"rank": 2, "ticker": "SMCI", "score": 86.4, "eps90": 0.472, "px90": 0.068, "gap": 0.404, "rev_growth": 0.932, "fpe": 5.4, "held": "", "name": "Super Micro"}, {"rank": 3, "ticker": "DELL", "score": 82.8, "eps90": 0.452, "px90": -0.066, "gap": 0.518, "rev_growth": 0.577, "fpe": 13.5, "held": "持有", "name": "Dell"}, {"rank": 4, "ticker": "MU", "score": 82.0, "eps90": 0.245, "px90": -0.03, "gap": 0.275, "rev_growth": 3.793, "fpe": 4.1, "held": "持有", "name": "美光"}, {"rank": 5, "ticker": "NVDA", "score": 80.3, "eps90": 0.242, "px90": -0.055, "gap": 0.297, "rev_growth": 1.059, "fpe": 13, "held": "持有", "name": "英伟达"}, {"rank": 6, "ticker": "ALAB", "score": 78.2, "eps90": 0.301, "px90": -0.295, "gap": 0.596, "rev_growth": 1.045, "fpe": 35.9, "held": "持有", "name": "Astera Labs"}, {"rank": 7, "ticker": "LITE", "score": 75.5, "eps90": 0.274, "px90": -0.188, "gap": 0.462, "rev_growth": 1.365, "fpe": 17.4, "held": "持有", "name": "Lumentum"}, {"rank": 8, "ticker": "LRCX", "score": 73.9, "eps90": 0.205, "px90": -0.245, "gap": 0.45, "rev_growth": 0.544, "fpe": 18.9, "held": "持有", "name": "Lam Research"}, {"rank": 9, "ticker": "000660.KS", "score": 72.4, "eps90": 0.153, "px90": -0.066, "gap": 0.219, "rev_growth": 3.279, "fpe": 2.6, "held": "", "name": "SK海力士"}, {"rank": 10, "ticker": "CLS", "score": 70.0, "eps90": 0.114, "px90": -0.174, "gap": 0.288, "rev_growth": 0.825, "fpe": 11.7, "held": "持有", "name": "Celestica"}, {"rank": 11, "ticker": "300308.SZ", "score": 68.9, "eps90": 0.048, "px90": -0.493, "gap": 0.541, "rev_growth": 1.718, "fpe": 8.2, "held": "", "name": "中际旭创"}, {"rank": 12, "ticker": "005930.KS", "score": 64.4, "eps90": 0.124, "px90": -0.038, "gap": 0.162, "rev_growth": 1.268, "fpe": 2.9, "held": "", "name": "三星电子"}, {"rank": 13, "ticker": "6857.T", "score": 64.3, "eps90": 0.324, "px90": 0.051, "gap": 0.273, "rev_growth": 0.817, "fpe": 145.4, "held": "", "name": "爱德万测试"}, {"rank": 14, "ticker": "CRDO", "score": 64.2, "eps90": 0.07, "px90": -0.345, "gap": 0.415, "rev_growth": 1.147, "fpe": 15.5, "held": "", "name": "Credo"}, {"rank": 15, "ticker": "FN", "score": 63.8, "eps90": 0.1, "px90": -0.332, "gap": 0.432, "rev_growth": 0.446, "fpe": 15.4, "held": "", "name": "Fabrinet"}, {"rank": 16, "ticker": "8035.T", "score": 63.2, "eps90": 0.151, "px90": -0.12, "gap": 0.271, "rev_growth": 0.484, "fpe": 7.5, "held": "", "name": "东京电子"}, {"rank": 17, "ticker": "MRVL", "score": 60.6, "eps90": 0.177, "px90": -0.183, "gap": 0.36, "rev_growth": 0.365, "fpe": 23.4, "held": "", "name": "Marvell"}, {"rank": 18, "ticker": "ANET", "score": 58.9, "eps90": 0.169, "px90": -0.117, "gap": 0.286, "rev_growth": 0.377, "fpe": 32, "held": "", "name": "Arista"}, {"rank": 19, "ticker": "COHR", "score": 56.1, "eps90": 0.057, "px90": -0.379, "gap": 0.436, "rev_growth": 0.337, "fpe": 14.9, "held": "", "name": "Coherent"}, {"rank": 20, "ticker": "ASML", "score": 52.6, "eps90": 0.1, "px90": -0.088, "gap": 0.188, "rev_growth": 0.552, "fpe": 24.6, "held": "", "name": "ASML"}, {"rank": 21, "ticker": "KLAC", "score": 50.9, "eps90": 0.083, "px90": -0.191, "gap": 0.274, "rev_growth": 0.289, "fpe": 22, "held": "", "name": "KLA"}, {"rank": 22, "ticker": "TLN", "score": 50.9, "eps90": 0.121, "px90": 0.056, "gap": 0.065, "rev_growth": 1.112, "fpe": 12.9, "held": "持有", "name": "Talen"}, {"rank": 23, "ticker": "AMAT", "score": 49.7, "eps90": 0.092, "px90": -0.275, "gap": 0.367, "rev_growth": 0.248, "fpe": 20.6, "held": "", "name": "应用材料"}, {"rank": 24, "ticker": "BE", "score": 47.4, "eps90": 0.088, "px90": -0.065, "gap": 0.153, "rev_growth": 1.381, "fpe": 40.2, "held": "", "name": "Bloom Energy"}, {"rank": 25, "ticker": "TSM", "score": 46.8, "eps90": 0.099, "px90": -0.029, "gap": 0.128, "rev_growth": 0.509, "fpe": 17.3, "held": "", "name": "台积电 (ADR)"}, {"rank": 26, "ticker": "SNOW", "score": 46.5, "eps90": 0.125, "px90": -0.072, "gap": 0.197, "rev_growth": 0.351, "fpe": 97.5, "held": "", "name": "Snowflake"}, {"rank": 27, "ticker": "2330.TW", "score": 44.0, "eps90": 0.079, "px90": -0.043, "gap": 0.122, "rev_growth": 0.509, "fpe": 15.1, "held": "", "name": "台积电"}, {"rank": 28, "ticker": "VRT", "score": 43.6, "eps90": 0.075, "px90": -0.142, "gap": 0.217, "rev_growth": 0.612, "fpe": 24.2, "held": "持有", "name": "Vertiv"}, {"rank": 29, "ticker": "AMD", "score": 40.3, "eps90": 0.08, "px90": -0.011, "gap": 0.091, "rev_growth": 0.501, "fpe": 29.9, "held": "", "name": "AMD"}, {"rank": 30, "ticker": "AVGO", "score": 39.0, "eps90": -0.006, "px90": -0.209, "gap": 0.203, "rev_growth": 0.855, "fpe": 17.1, "held": "", "name": "博通"}, {"rank": 31, "ticker": "ORCL", "score": 36.6, "eps90": 0.017, "px90": -0.117, "gap": 0.134, "rev_growth": 0.296, "fpe": 11.4, "held": "", "name": "甲骨文"}, {"rank": 32, "ticker": "GOOGL", "score": 35.7, "eps90": 0.011, "px90": -0.217, "gap": 0.228, "rev_growth": 0.247, "fpe": 18.1, "held": "", "name": "Alphabet"}, {"rank": 33, "ticker": "APP", "score": 34.3, "eps90": -0.073, "px90": -0.269, "gap": 0.196, "rev_growth": 0.528, "fpe": 12.3, "held": "", "name": "AppLovin"}, {"rank": 34, "ticker": "PLTR", "score": 30.0, "eps90": 0.069, "px90": 0.125, "gap": -0.056, "rev_growth": 0.928, "fpe": 70.7, "held": "", "name": "Palantir"}, {"rank": 35, "ticker": "ARM", "score": 29.8, "eps90": -0.004, "px90": -0.294, "gap": 0.29, "rev_growth": 0.224, "fpe": 66.2, "held": "", "name": "Arm"}, {"rank": 36, "ticker": "GEV", "score": 28.9, "eps90": 0.049, "px90": -0.082, "gap": 0.131, "rev_growth": 0.268, "fpe": 35.5, "held": "", "name": "GE Vernova"}, {"rank": 37, "ticker": "ETN", "score": 28.8, "eps90": 0.019, "px90": -0.124, "gap": 0.143, "rev_growth": 0.214, "fpe": 24, "held": "", "name": "伊顿"}, {"rank": 38, "ticker": "9988.HK", "score": 26.6, "eps90": -0.038, "px90": -0.223, "gap": 0.185, "rev_growth": 0.086, "fpe": 11.2, "held": "", "name": "阿里巴巴"}, {"rank": 39, "ticker": "CEG", "score": 24.1, "eps90": 0.006, "px90": 0.01, "gap": -0.004, "rev_growth": 0.23, "fpe": 19.6, "held": "", "name": "Constellation"}, {"rank": 40, "ticker": "MSFT", "score": 22.4, "eps90": 0.03, "px90": 0.044, "gap": -0.014, "rev_growth": 0.188, "fpe": 21.5, "held": "", "name": "微软"}, {"rank": 41, "ticker": "AMZN", "score": 21.5, "eps90": 0.021, "px90": -0.079, "gap": 0.1, "rev_growth": 0.121, "fpe": 23, "held": "", "name": "亚马逊"}, {"rank": 42, "ticker": "META", "score": 19.3, "eps90": -0.002, "px90": 0.054, "gap": -0.056, "rev_growth": 0.261, "fpe": 17.5, "held": "", "name": "Meta"}, {"rank": 43, "ticker": "0700.HK", "score": 18.5, "eps90": -0.074, "px90": -0.193, "gap": 0.119, "rev_growth": 0.11, "fpe": 11.3, "held": "", "name": "腾讯"}, {"rank": 44, "ticker": "VST", "score": 14.0, "eps90": -0.062, "px90": -0.011, "gap": -0.051, "rev_growth": -0.055, "fpe": 14.6, "held": "", "name": "Vistra"}, {"rank": 45, "ticker": "NOW", "score": 13.3, "eps90": -0.041, "px90": -0.07, "gap": 0.029, "rev_growth": 0.205, "fpe": 22.7, "held": "", "name": "ServiceNow"}]};
+(function(){
+  const cache={}, calcs=[], draws={};
+  for (const [k,v] of Object.entries(window.__DATA__)) cache[k]=v;
+  window.dash={
+    colors:['#2f6fd6','#d9822b','#2a9d8f','#9b5de5','#e15759','#59a14f','#edc948','#76b7b2'],
+    data:(id)=>({status: cache[id]? 'ok':'missing', data: cache[id]||[]}),
+    calc:(id,o)=>{ cache[id]=o.fn(...o.inputs.map(i=>cache[i])); },
+    draw:(name,fn)=>{ if(fn){ draws[name]=fn; } else if(draws[name]) document.querySelectorAll('[data-draw="'+name+'"]').forEach(el=>draws[name](el)); },
+    onData:(fn)=>fn(), setLink:()=>{}, params:()=>({})
+  };
+  function all(){ for(const n of Object.keys(draws)) dash.draw(n); }
+  window.addEventListener('load', all);
+  let t; window.addEventListener('resize', ()=>{ clearTimeout(t); t=setTimeout(all,150); });
+})();
+</script>
+</head><body><div id="dash-root">
+<style>
+#dash-root { --dash-gutter: var(--cds-gap-lg); }
+.ait { font-family: var(--font-anthropic-sans); color: var(--color-fg); max-width: 1180px; margin-inline: auto; display: grid; gap: var(--cds-gap-xl); }
+.ait h1 { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); margin: 0; text-wrap: balance; }
+.ait h2 { font-size: var(--cds-font-size-heading); font-weight: var(--cds-font-weight-medium); margin: 0; text-wrap: balance; }
+.ait h3 { font-size: var(--cds-font-size-body); font-weight: var(--cds-font-weight-medium); margin: 0; }
+.ait p { margin: 0; line-height: 1.6; max-width: 72ch; }
+.ait .muted { color: var(--color-fg-muted); }
+.ait .cap { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); line-height: 1.5; }
+.ait .head { display: grid; gap: var(--cds-gap-sm); }
+.ait .eyebrow { font-size: var(--cds-font-size-caption); letter-spacing: .06em; color: var(--color-fg-muted); }
+.ait .takeaway { font-size: var(--cds-font-size-body); line-height: 1.7; max-width: 80ch; }
+.ait .takeaway b, .ait .note b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.ait .tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr)); gap: var(--cds-gap-md); }
+.ait .tile { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-xs); align-content: start; }
+.ait .tile .big { font-family: var(--font-anthropic-serif); font-weight: 400; font-size: var(--cds-font-size-title); font-variant-numeric: tabular-nums; line-height: 1.15; }
+.ait .tile .lbl { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.ait .tile .sub { font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); font-variant-numeric: tabular-nums; }
+.ait .pos { color: var(--color-ok); }
+.ait .neg { color: var(--color-bad); }
+.ait .section { display: grid; gap: var(--cds-gap-md); }
+.ait .section > .intro { display: grid; gap: var(--cds-gap-xs); }
+.ait .grid2 { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 26rem), 1fr)); gap: var(--cds-gap-md); }
+.ait .card { background: var(--color-panel); border: 1px solid var(--color-border-line); border-radius: var(--cds-radius); padding: var(--cds-pad-lg); display: grid; gap: var(--cds-gap-sm); align-content: start; min-width: 0; }
+.ait .chart { position: relative; min-width: 0; }
+.ait .chart svg { display: block; overflow: visible; }
+.ait .chart-tier { min-height: 300px; }
+.ait .chart-niche { min-height: 640px; }
+.ait .chart-trend { min-height: 380px; }
+.ait .chart-eps { min-height: 420px; }
+.ait .tt { position: absolute; pointer-events: none; background: var(--cds-surface-popover); border: 1px solid var(--cds-border); border-radius: var(--cds-radius); box-shadow: var(--cds-shadow-popover); padding: var(--cds-pad-xs) var(--cds-pad-sm); font-size: var(--cds-font-size-caption); line-height: 1.5; max-width: 260px; z-index: 5; font-variant-numeric: tabular-nums; }
+.ait .tt .t { color: var(--cds-text-secondary); }
+.ait .controls { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm); align-items: center; }
+.ait .seg { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); border-radius: var(--cds-radius); cursor: pointer; }
+.ait .seg[aria-pressed="true"] { background: var(--color-fg); color: var(--color-bg); border-color: var(--color-fg); }
+.ait .seg:focus-visible, .ait select:focus-visible, .ait input:focus-visible, .ait th button:focus-visible { outline: 2px solid var(--color-fg); outline-offset: 2px; }
+.ait select, .ait input[type="search"] { font: inherit; font-size: var(--cds-font-size-caption); padding: var(--cds-pad-xs) var(--cds-pad-sm); border: 1px solid var(--color-border-line); background: var(--color-bg); color: var(--color-fg); border-radius: var(--cds-radius); min-width: 0; }
+.ait input[type="search"] { width: min(100%, 16rem); }
+.ait .tbl-wrap { overflow: auto; max-height: 560px; border-top: 1px solid var(--color-border-line); }
+.ait .tbl-wrap.short { max-height: none; }
+.ait table { width: 100%; border-collapse: collapse; font-size: var(--cds-font-size-caption); font-variant-numeric: tabular-nums; }
+.ait th { position: sticky; top: 0; background: var(--color-panel); text-align: left; font-weight: var(--cds-font-weight-medium); color: var(--color-fg-muted); padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); white-space: nowrap; z-index: 1; }
+.ait th.num, .ait td.num { text-align: right; }
+.ait th button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+.ait td { padding: var(--cds-pad-xs) var(--cds-pad-sm); border-bottom: 1px solid var(--color-border-line); vertical-align: top; }
+.ait td.wrap { white-space: normal; min-width: 16rem; line-height: 1.5; }
+.ait td.nw { white-space: nowrap; }
+.ait .pill { display: inline-block; font-size: var(--cds-font-size-caption); padding: 0 var(--cds-pad-xs); border-radius: var(--cds-radius); border: 1px solid var(--color-border-line); white-space: nowrap; }
+.ait .pill.t1 { border-color: currentColor; }
+.ait .bar-cell { display: flex; align-items: center; gap: var(--cds-gap-xs); justify-content: flex-end; }
+.ait .bar-track { position: relative; width: 70px; height: 8px; flex: none; }
+.ait .bar-track i { position: absolute; top: 0; height: 8px; border-radius: 2px; }
+.ait .bar-track s { position: absolute; left: 50%; top: -2px; width: 1px; height: 12px; background: var(--cds-chart-axis); }
+.ait .note { display: grid; gap: var(--cds-gap-sm); }
+.ait .note li { line-height: 1.6; }
+.ait ul { margin: 0; padding-left: 1.2em; display: grid; gap: var(--cds-gap-xs); }
+.ait .legend { display: flex; flex-wrap: wrap; gap: var(--cds-gap-sm) var(--cds-gap-md); font-size: var(--cds-font-size-caption); color: var(--color-fg-muted); }
+.ait .legend span { display: inline-flex; align-items: center; gap: 6px; }
+.ait .legend i { width: 10px; height: 10px; border-radius: 2px; display: inline-block; }
+.ait a { color: inherit; }
+.ait [data-dash-source-state=refreshing] { opacity: .5; transition: opacity var(--cds-dur-slow); }
+.ait [data-dash-source-state=empty] { color: transparent; }
+.ait .chart-bars { min-height: 330px; }
+</style>
+
+<div class="ait">
+  <header class="head" id="top">
+    <div class="eyebrow">AI产业链 · 成长组合 · 模型组合</div>
+    <h1>AI成长组合 · 月度追踪</h1>
+    <p class="cap">建仓：2026年11月3日收盘 · 逆波动率加权（单只上限15%）· 每月初自动更新收盘价、预期修正与评分 · 价格收益、本币计价</p>
+    <p class="takeaway">最近一次更新为 <b data-draw="t" data-source="gp_sum" data-field="value" data-where="metric=last_date">—</b>，组合自建仓以来 <b data-draw="v" data-source="gp_sum" data-field="value" data-where="metric=port_ret">—</b>，相对纳斯达克100 <b data-draw="v" data-fmt="pp" data-source="gp_sum" data-field="value" data-where="metric=ex_ndx">—</b>、相对费城半导体 <b data-draw="v" data-fmt="pp" data-source="gp_sum" data-field="value" data-where="metric=ex_sox">—</b>。本月需要处理的事项 <b data-draw="v" data-fmt="int" data-source="gp_sum" data-field="value" data-where="metric=n_actions">—</b> 项（权重偏离超过3个百分点，或信号触发复核）。</p>
+  </header>
+
+  <section class="tiles" aria-label="核心指标">
+    <div class="tile"><div class="lbl">组合收益 · 建仓以来</div><div class="big" data-draw="v" data-source="gp_sum" data-field="value" data-where="metric=port_ret">—</div><div class="sub">按每月调回目标权重计算</div></div>
+    <div class="tile"><div class="lbl">相对纳斯达克100</div><div class="big" data-draw="v" data-fmt="pp" data-source="gp_sum" data-field="value" data-where="metric=ex_ndx">—</div><div class="sub">主要基准</div></div>
+    <div class="tile"><div class="lbl">相对费城半导体</div><div class="big" data-draw="v" data-fmt="pp" data-source="gp_sum" data-field="value" data-where="metric=ex_sox">—</div><div class="sub">风险水平最接近的基准</div></div>
+    <div class="tile"><div class="lbl">组合年化波动率（近6个月）</div><div class="big" data-draw="v" data-fmt="pct0" data-source="gp_riskmetrics" data-field="vol" data-where="scheme=逆波动率（采用）">—</div><div class="sub">费城半导体 <span data-draw="v" data-fmt="pct0" data-source="gp_riskmetrics" data-field="vol" data-where="scheme=费城半导体">—</span> · 纳指100 <span data-draw="v" data-fmt="pct0" data-source="gp_riskmetrics" data-field="vol" data-where="scheme=纳斯达克100">—</span></div></div>
+  </section>
+
+  <section class="section" id="nav">
+    <div class="intro">
+      <h2>一、净值走势</h2>
+      <p class="muted">以建仓日为100。灰色区域为建仓前按目标权重回看的走势，仅说明买入时所处的位置，不计入组合业绩；建仓后每月新增一个点。</p>
+    </div>
+    <div class="card"><div class="chart chart-trend" data-draw="gp-nav" data-source="gp_history gp_nav"></div></div>
+  </section>
+
+  <section class="section" id="positions">
+    <div class="intro">
+      <h2>二、持仓与本月调仓</h2>
+      <p class="muted">每次月度更新后，按上月以来的涨跌计算各持仓的实际权重。偏离目标超过3个百分点的给出调回目标的建议；其余持有不动，避免频繁交易。</p>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap short">
+        <table data-source="gp_pos" data-row-key="ticker">
+          <thead><tr><th data-field="name">标的</th><th data-field="ticker">代码</th><th data-field="niche">环节</th><th class="num" data-field="entry_close">建仓价</th><th class="num" data-field="close">最新收盘</th><th class="num" data-field="ret">建仓以来</th><th class="num" data-field="period_ret">本期涨跌</th><th class="num" data-field="target">目标权重</th><th class="num" data-field="drift">当前权重</th><th class="num" data-field="deviation">偏离</th><th data-field="action">建议</th></tr></thead>
+          <tbody data-draw="gp-pos"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="weights">
+    <div class="intro">
+      <h2>三、为什么改用逆波动率加权</h2>
+      <p class="muted">等权时，波动最大的几只股票承担了不成比例的组合风险。逆波动率加权让每只股票的风险贡献更接近，组合波动与最大回撤略有下降；由于这10只股票之间的平均相关性较高，下降幅度有限。</p>
+    </div>
+    <div class="grid2">
+      <div class="card">
+        <h3>权重：等权 vs 逆波动率</h3>
+        <div class="legend"><span><i data-draw="sw" data-k="eq"></i>等权</span><span><i data-draw="sw" data-k="iv"></i>逆波动率（采用）</span></div>
+        <div class="chart chart-bars" data-draw="gp-bars" data-k="w" data-source="gp_risk"></div>
+      </div>
+      <div class="card">
+        <h3>风险贡献：等权 vs 逆波动率</h3>
+        <div class="legend"><span><i data-draw="sw" data-k="eq"></i>等权</span><span><i data-draw="sw" data-k="iv"></i>逆波动率（采用）</span></div>
+        <div class="chart chart-bars" data-draw="gp-bars" data-k="rc" data-source="gp_risk"></div>
+      </div>
+    </div>
+    <div class="card">
+      <h3>风险对比（2026年5月至11月，日度数据）</h3>
+      <div class="tbl-wrap short">
+        <table data-source="gp_riskmetrics" data-row-key="scheme">
+          <thead><tr><th data-field="scheme">方案 / 基准</th><th class="num" data-field="vol">年化波动率</th><th class="num" data-field="maxdd">最大回撤</th></tr></thead>
+          <tbody data-draw="gp-rm"></tbody>
+        </table>
+      </div>
+      <p class="cap">这里只比较风险，不比较收益：用建仓前的数据回看收益，等于事后挑选方案。组合的波动水平与费城半导体相当，明显高于纳指100，因此跑赢或跑输都会比宽基指数幅度更大。</p>
+    </div>
+  </section>
+
+  <section class="section" id="signals">
+    <div class="intro">
+      <h2>四、信号监控</h2>
+      <p class="muted">每月重新计算每只持仓的盈利预期修正与评分。出现以下任一情况即标记复核：未来财年EPS预期90天内下修；在45只AI股票池中的综合评分跌出前30。复核不等于卖出，需结合基本面判断。</p>
+    </div>
+    <div class="card">
+      <div class="tbl-wrap short">
+        <table data-source="gp_signals" data-row-key="ticker">
+          <thead><tr><th data-field="name">标的</th><th class="num" data-field="eps90">90天EPS修正</th><th class="num" data-field="px90">90天股价</th><th class="num" data-field="gap">预期领先股价</th><th class="num" data-field="rev_growth">收入增速</th><th class="num" data-field="fpe">前瞻PE</th><th class="num" data-field="vol">年化波动率</th><th class="num" data-field="rank">池内排名</th><th data-field="flag">状态</th></tr></thead>
+          <tbody data-draw="gp-sig"></tbody>
+        </table>
+      </div>
+    </div>
+    <div class="card">
+      <h3>股票池再评分（替换候选来源）</h3>
+      <p class="cap">评分因子：90天EPS预期修正30%、预期领先股价25%、收入增速20%、前瞻PE 15%、上调分析师占比10%。持仓若被复核替换，优先从排名靠前、且所在环节未满两只的股票中选。</p>
+      <div class="tbl-wrap">
+        <table data-source="gp_universe" data-row-key="ticker">
+          <thead><tr><th class="num" data-field="rank">排名</th><th data-field="name">标的</th><th data-field="ticker">代码</th><th class="num" data-field="score">综合得分</th><th class="num" data-field="eps90">90天EPS修正</th><th class="num" data-field="px90">90天股价</th><th class="num" data-field="rev_growth">收入增速</th><th class="num" data-field="fpe">前瞻PE</th><th data-field="held">持有</th></tr></thead>
+          <tbody data-draw="gp-uni"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="log">
+    <div class="intro"><h2>五、调仓日志</h2></div>
+    <div class="card">
+      <div class="tbl-wrap short">
+        <table data-source="gp_log" data-row-key="date">
+          <thead><tr><th data-field="date">日期</th><th data-field="action">操作</th><th data-field="detail">说明</th></tr></thead>
+          <tbody data-draw="gp-log"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <section class="section note" id="method">
+    <h2>规则与口径</h2>
+    <ul class="cap">
+      <li>目标权重：按近6个月日收益的年化波动率倒数加权，单只上限15%，每季度重新计算一次。</li>
+      <li>月度调仓：每月初更新后，任何持仓偏离目标超过3个百分点即调回目标权重；否则持有。</li>
+      <li>复核与替换：EPS预期90天下修，或综合评分跌出前30，标记复核；连续两个月复核且基本面判断恶化，则从股票池中替换。</li>
+      <li>组合收益按每月调回目标权重计算，为价格收益（不含分红）、本币计价，未做汇率换算。数据来自 Yahoo Finance。</li>
+      <li>本组合不保证跑赢任何基准；为研究讨论用的模型组合，不构成投资建议。</li>
+    </ul>
+  </section>
+</div>
+
+<script>
+window.AIT = (function(){
+  const st = { nicheMetric: 'ret', trendMode: 'tier', niche: 'N03', holdTier: '', holdQ: '', sortKey: 'ret', sortDir: -1 };
+  const f1 = d3.format('+.1%'), f0 = d3.format('.0%');
+  const fmt = (k, x) => {
+    if (x == null || Number.isNaN(x)) return '—';
+    if (k === 'pct0') return f0(x);
+    if (k === 'x') return d3.format('.1f')(x) + 'x';
+    if (k === 'pct1') return d3.format('.1%')(x);
+    if (k === 'pp') return (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(1) + 'pp';
+    if (k === 'int') return d3.format(',')(x);
+    if (k === 'price') return x >= 1000 ? d3.format(',.0f')(x) : x >= 100 ? d3.format(',.1f')(x) : d3.format(',.2f')(x);
+    return f1(x).replace('-', '−');
+  };
+  const tierColor = (t) => {
+    const c = dash.colors;
+    const s = String(t || '');
+    if (s.startsWith('第一层')) return c[0];
+    if (s.startsWith('第二层')) return c[1];
+    if (s.startsWith('第三层')) return c[2];
+    if (s.startsWith('第四层')) return c[3];
+    if (s === '全部') return 'var(--color-fg)';
+    return 'var(--cds-chart-muted)';
+  };
+  const firstTier = (s) => String(s).split('/').sort((a,b)=> (a==='未分层') - (b==='未分层'))[0];
+  const sign = (el, x) => { el.classList.toggle('pos', x > 0); el.classList.toggle('neg', x < 0); };
+  function tip(box) {
+    let t = box.querySelector(':scope > .tt');
+    if (!t) { t = document.createElement('div'); t.className = 'tt'; t.hidden = true; box.appendChild(t); }
+    return {
+      show(ev, title, lines) {
+        t.replaceChildren();
+        const h = document.createElement('div'); h.className = 't'; h.textContent = title; t.appendChild(h);
+        for (const l of lines) { const d = document.createElement('div'); d.textContent = l; t.appendChild(d); }
+        t.hidden = false;
+        const r = box.getBoundingClientRect();
+        let x = ev.clientX - r.left + 12, y = ev.clientY - r.top + 12;
+        const w = t.offsetWidth, hgt = t.offsetHeight;
+        if (x + w > r.width) x = Math.max(0, ev.clientX - r.left - w - 12);
+        if (y + hgt > r.height) y = Math.max(0, ev.clientY - r.top - hgt - 12);
+        t.style.left = x + 'px'; t.style.top = y + 'px';
+      },
+      hide() { t.hidden = true; }
+    };
+  }
+  function clearDash(el) { el.textContent = '—'; }
+  function textW(svg, s, size) {
+    const n = svg.append('text').attr('font-size', size).attr('visibility', 'hidden').text(s);
+    const w = n.node().getComputedTextLength(); n.remove(); return w;
+  }
+  return { st, fmt, tierColor, firstTier, sign, tip, clearDash, textW };
+})();
+
+
+dash.calc('gp_nav', {
+  inputs: ['gp_snapshots', 'gp_targets'],
+  title: '组合与基准净值',
+  description: '每个快照日的组合净值（每月调回当时目标权重）与基准指数，建仓日为100',
+  fn: (gp_snapshots, gp_targets) => {
+    const dates = [...new Set(gp_snapshots.map((r) => r.date))].sort();
+    const px = (d, t) => { const r = gp_snapshots.find((x) => x.date === d && x.ticker === t); return r ? r.close : null; };
+    const tgt = (d) => { const eff = [...new Set(gp_targets.map((r) => r.effective))].filter((e) => e <= d).sort().pop(); return gp_targets.filter((r) => r.effective === eff); };
+    let nav = 100; const out = [];
+    dates.forEach((d, i) => {
+      if (i > 0) { const prev = dates[i - 1]; const w = tgt(prev); let r = 0, ws = 0; for (const x of w) { const a = px(prev, x.ticker), b = px(d, x.ticker); if (a && b) { r += x.weight * (b / a - 1); ws += x.weight; } } nav *= 1 + (ws ? r / ws : 0); }
+      const b0 = (t) => px(dates[0], t);
+      out.push({ date: d, port: nav, ndx: 100 * px(d, '^NDX') / b0('^NDX'), sox: 100 * px(d, '^SOX') / b0('^SOX'), acwi: 100 * px(d, 'ACWI') / b0('ACWI') });
+    });
+    return out;
+  }
+});
+dash.calc('gp_pos', {
+  inputs: ['gp_snapshots', 'gp_targets'],
+  title: '持仓与调仓建议',
+  description: '最新收盘、建仓以来与本期涨跌、按本期涨跌漂移后的权重、相对目标的偏离，偏离超过3个百分点建议调回',
+  fn: (gp_snapshots, gp_targets) => {
+    const dates = [...new Set(gp_snapshots.map((r) => r.date))].sort();
+    const last = dates[dates.length - 1], prev = dates.length > 1 ? dates[dates.length - 2] : last;
+    const eff = [...new Set(gp_targets.map((r) => r.effective))].filter((e) => e <= prev).sort().pop();
+    const w = gp_targets.filter((r) => r.effective === eff);
+    const px = (d, t) => { const r = gp_snapshots.find((x) => x.date === d && x.ticker === t); return r ? r.close : null; };
+    const rows = w.map((x) => { const c = px(last, x.ticker), p = px(prev, x.ticker); return { ...x, close: c, ret: c / x.entry_close - 1, period_ret: p ? c / p - 1 : 0, target: x.weight, grown: x.weight * (p ? c / p : 1) }; });
+    const tot = rows.reduce((s, r) => s + r.grown, 0);
+    return rows.map((r) => { const drift = r.grown / tot, dev = drift - r.target; return { ticker: r.ticker, name: r.name, niche: r.niche, ccy: r.ccy, entry_close: r.entry_close, close: r.close, ret: r.ret, period_ret: r.period_ret, target: r.target, drift, deviation: dev, action: Math.abs(dev) > 0.03 ? (dev > 0 ? '减持至目标' : '增持至目标') : '持有' }; });
+  }
+});
+dash.calc('gp_sum', {
+  inputs: ['gp_nav', 'gp_pos', 'gp_signals'],
+  title: '组合汇总',
+  description: '建仓以来组合收益、相对基准超额与本月待处理事项数',
+  fn: (gp_nav, gp_pos, gp_signals) => {
+    const l = gp_nav[gp_nav.length - 1] || { port: 100, ndx: 100, sox: 100, acwi: 100, date: null };
+    const pr = l.port / 100 - 1;
+    const sigDate = gp_signals.map((r) => r.date).sort().pop();
+    const flagged = gp_signals.filter((r) => r.date === sigDate && r.flag !== '正常').length;
+    return [
+      { metric: 'last_date', value: l.date },
+      { metric: 'port_ret', value: pr },
+      { metric: 'ex_ndx', value: pr - (l.ndx / 100 - 1) },
+      { metric: 'ex_sox', value: pr - (l.sox / 100 - 1) },
+      { metric: 'ex_acwi', value: pr - (l.acwi / 100 - 1) },
+      { metric: 'n_actions', value: gp_pos.filter((r) => r.action !== '持有').length + flagged }
+    ];
+  }
+});
+</script>
+
+<script>
+dash.draw('v', (el) => {
+  const d = dash.data(el.dataset.source);
+  if (d.status !== 'ok') { AIT.clearDash(el); return; }
+  const [k, raw] = (el.dataset.where || '').split('=');
+  const row = d.data.find((r) => String(r[k]) === decodeURIComponent(raw || ''));
+  const x = row ? row[el.dataset.field] : null;
+  el.textContent = AIT.fmt(el.dataset.fmt, x);
+  if (!['pct0', 'int', 'x', 'pct1'].includes(el.dataset.fmt)) AIT.sign(el, x);
+});
+dash.draw('t', (el) => {
+  const d = dash.data(el.dataset.source);
+  if (d.status !== 'ok') { AIT.clearDash(el); return; }
+  const [k, v] = el.dataset.where.split('=');
+  const row = d.data.find((r) => String(r[k]) === v);
+  el.textContent = row && row[el.dataset.field] != null ? String(row[el.dataset.field]) : '—';
+});
+dash.draw('sw', (el) => { el.style.background = el.dataset.k === 'eq' ? 'var(--cds-chart-muted)' : dash.colors[0]; });
+
+dash.draw('gp-nav', (el) => {
+  const h = dash.data('gp_history'), n = dash.data('gp_nav');
+  el.replaceChildren();
+  if (h.status !== 'ok' || n.status !== 'ok') return;
+  const parse = d3.utcParse('%Y-%m-%d');
+  const keys = [['IV', 'port', '组合', dash.colors[0], 2.5, null], ['^NDX', 'ndx', '纳斯达克100', 'var(--color-fg)', 1.5, '4 3'], ['^SOX', 'sox', '费城半导体', dash.colors[1], 1.5, '4 3'], ['ACWI', 'acwi', 'MSCI ACWI', 'var(--cds-chart-muted)', 1.5, '4 3']];
+  const series = keys.map(([hk, nk, label, col, w, dp]) => {
+    const pre = h.data.filter((r) => r.series === hk).map((r) => ({ t: parse(r.date), v: r.value, post: false }));
+    const post = n.data.map((r) => ({ t: parse(r.date), v: r[nk], post: true }));
+    const pts = pre.filter((p) => !post.length || +p.t < +post[0].t).concat(post);
+    return { label, col, w, dp, pts };
+  });
+  const lg = document.createElement('div'); lg.className = 'legend';
+  for (const s of series) { const sp = document.createElement('span'); const sw = document.createElement('i'); sw.style.background = s.col; sp.append(sw, s.label); lg.appendChild(sp); }
+  el.appendChild(lg);
+  const W = el.clientWidth || 800, H = 360, m = { l: 40, r: 14, t: 14, b: 26 };
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const all = series.flatMap((s) => s.pts);
+  const x = d3.scaleUtc(d3.extent(all, (p) => p.t), [m.l, W - m.r]);
+  const y = d3.scaleLinear(d3.extent(all, (p) => p.v), [H - m.b, m.t]).nice();
+  const t0 = parse(n.data[0].date);
+  svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', Math.max(0, x(t0) - m.l)).attr('height', H - m.t - m.b).style('fill', 'var(--cds-chart-grid)').attr('opacity', 0.5);
+  svg.append('g').attr('transform', `translate(${m.l},0)`).call(d3.axisLeft(y).ticks(5)).attr('font-size', null).attr('font-family', null)
+    .call((g) => { g.select('.domain').remove(); g.selectAll('line').attr('stroke', 'var(--cds-chart-grid)').attr('x2', W - m.l - m.r); g.selectAll('text').attr('fill', 'var(--color-fg-muted)').style('font-size', '11px'); });
+  svg.append('g').attr('transform', `translate(0,${H - m.b})`).call(d3.axisBottom(x).ticks(Math.max(3, Math.floor(W / 110))).tickFormat(d3.utcFormat('%y/%-m'))).attr('font-size', null).attr('font-family', null)
+    .call((g) => { g.select('.domain').attr('stroke', 'var(--cds-chart-axis)'); g.selectAll('line').attr('stroke', 'var(--cds-chart-axis)'); g.selectAll('text').attr('fill', 'var(--color-fg-muted)').style('font-size', '11px'); });
+  svg.append('text').attr('x', m.l + 6).attr('y', m.t + 12).style('font-size', '11px').attr('fill', 'var(--color-fg-muted)').text('建仓前（参考，不计入业绩）');
+  svg.append('line').attr('x1', x(t0)).attr('x2', x(t0)).attr('y1', m.t).attr('y2', H - m.b).attr('stroke', 'var(--cds-chart-reference)').attr('stroke-dasharray', '4 4');
+  svg.append('line').attr('x1', m.l).attr('x2', W - m.r).attr('y1', y(100)).attr('y2', y(100)).attr('stroke', 'var(--cds-chart-axis)');
+  const line = d3.line().x((p) => x(p.t)).y((p) => y(p.v));
+  svg.append('g').selectAll('path').data(series).join('path').attr('d', (s) => line(s.pts)).attr('fill', 'none').style('stroke', (s) => s.col).attr('stroke-width', (s) => s.w).attr('stroke-dasharray', (s) => s.dp).attr('stroke-linejoin', 'round').attr('stroke-linecap', 'round');
+  svg.append('g').selectAll('circle').data(series[0].pts.filter((p) => p.post)).join('circle').attr('cx', (p) => x(p.t)).attr('cy', (p) => y(p.v)).attr('r', 4).style('fill', dash.colors[0]);
+  const tp = AIT.tip(el);
+  const dates = [...new Set(all.map((p) => +p.t))].sort((a, b) => a - b);
+  svg.append('rect').attr('x', m.l).attr('y', m.t).attr('width', W - m.l - m.r).attr('height', H - m.t - m.b).style('fill', 'transparent')
+    .on('mousemove', (ev) => { const [mx] = d3.pointer(ev); const tt = dates[d3.minIndex(dates, (d) => Math.abs(d - +x.invert(mx)))];
+      tp.show(ev, d3.utcFormat('%Y-%m-%d')(new Date(tt)) + (tt < +t0 ? '（建仓前）' : ''), series.map((s) => { const p = s.pts.find((q) => +q.t === tt); return p ? `${s.label}  ${d3.format('.1f')(p.v)}` : null; }).filter(Boolean)); })
+    .on('mouseleave', () => tp.hide());
+});
+
+dash.draw('gp-bars', (el) => {
+  const d = dash.data('gp_risk');
+  d3.select(el).selectAll('svg').remove();
+  if (d.status !== 'ok') return;
+  const k = el.dataset.k, ke = k + '_eq', ki = k + '_iv';
+  const rows = d.data.slice().sort((a, b) => b[ki] - a[ki]);
+  const W = el.clientWidth || 420, rowH = 30, H = rows.length * rowH + 28;
+  const svg = d3.select(el).append('svg').attr('width', '100%').attr('viewBox', `0 0 ${W} ${H}`);
+  const lw = d3.max(rows, (r) => AIT.textW(svg, r.name, 12)) + 12;
+  const x = d3.scaleLinear([0, d3.max(rows, (r) => Math.max(r[ke], r[ki])) * 1.1], [lw, W - 44]).nice();
+  const y = d3.scaleBand(rows.map((r) => r.ticker), [4, H - 24]).padding(0.2);
+  const sub = d3.scaleBand(['eq', 'iv'], [0, y.bandwidth()]).padding(0.1);
+  svg.append('g').attr('transform', `translate(0,${H - 24})`).call(d3.axisBottom(x).ticks(4).tickFormat(d3.format('.0%'))).attr('font-size', null).attr('font-family', null)
+    .call((g) => { g.select('.domain').remove(); g.selectAll('line').attr('stroke', 'var(--cds-chart-grid)').attr('y2', -(H - 28)); g.selectAll('text').attr('fill', 'var(--color-fg-muted)').style('font-size', '11px'); });
+  const g = svg.append('g').selectAll('g').data(rows).join('g').attr('transform', (r) => `translate(0,${y(r.ticker)})`);
+  g.append('text').attr('x', lw - 8).attr('y', y.bandwidth() / 2).attr('dy', '0.35em').attr('text-anchor', 'end').style('font-size', '12px').attr('fill', 'var(--color-fg)').text((r) => r.name);
+  g.append('rect').attr('x', lw).attr('y', sub('eq')).attr('height', sub.bandwidth()).attr('width', (r) => x(r[ke]) - lw).attr('rx', 2).style('fill', 'var(--cds-chart-muted)');
+  g.append('rect').attr('x', lw).attr('y', sub('iv')).attr('height', sub.bandwidth()).attr('width', (r) => x(r[ki]) - lw).attr('rx', 2).style('fill', dash.colors[0]);
+  g.append('text').attr('x', (r) => x(r[ki]) + 4).attr('y', sub('iv') + sub.bandwidth() / 2).attr('dy', '0.35em').style('font-size', '10px').attr('fill', 'var(--color-fg-muted)').text((r) => d3.format('.1%')(r[ki]));
+  const tp = AIT.tip(el);
+  g.append('rect').attr('x', 0).attr('width', W).attr('height', y.bandwidth()).style('fill', 'transparent')
+    .on('mousemove', (ev, r) => tp.show(ev, r.name, [`年化波动率 ${d3.format('.0%')(r.vol)}`, `等权 ${d3.format('.1%')(r[ke])}`, `逆波动率 ${d3.format('.1%')(r[ki])}`]))
+    .on('mouseleave', () => tp.hide());
+});
+
+function gpRows(el, rows, cellsOf, key) {
+  for (const r of rows) {
+    const tr = document.createElement('tr'); if (key) tr.dataset.key = r[key];
+    for (const [t, c, s, col] of cellsOf(r)) { const td = document.createElement('td'); td.textContent = t; if (c) td.className = c; if (s != null) AIT.sign(td, s); if (col) td.style.color = col; tr.appendChild(td); }
+    el.appendChild(tr);
+  }
+}
+const pp = (x) => (x >= 0 ? '+' : '−') + Math.abs(x * 100).toFixed(1) + 'pp';
+dash.draw('gp-pos', (el) => {
+  const d = dash.data('gp_pos'); el.replaceChildren();
+  if (d.status !== 'ok') return;
+  gpRows(el, d.data, (r) => [[r.name, 'nw'], [r.ticker, 'nw'], [r.niche, 'nw'], [`${AIT.fmt('price', r.entry_close)} ${r.ccy}`, 'num nw'], [`${AIT.fmt('price', r.close)} ${r.ccy}`, 'num nw'],
+    [AIT.fmt('', r.ret), 'num', r.ret], [AIT.fmt('', r.period_ret), 'num', r.period_ret], [AIT.fmt('pct1', r.target), 'num'], [AIT.fmt('pct1', r.drift), 'num'], [pp(r.deviation), 'num'],
+    [r.action, 'nw', null, r.action === '持有' ? null : 'var(--color-warn)']], 'ticker');
+});
+dash.draw('gp-rm', (el) => {
+  const d = dash.data('gp_riskmetrics'); el.replaceChildren();
+  if (d.status !== 'ok') return;
+  gpRows(el, d.data, (r) => [[r.scheme, 'nw'], [AIT.fmt('pct1', r.vol), 'num'], [AIT.fmt('', r.maxdd), 'num', r.maxdd]]);
+});
+dash.draw('gp-sig', (el) => {
+  const d = dash.data('gp_signals'); el.replaceChildren();
+  if (d.status !== 'ok') return;
+  const last = d.data.map((r) => r.date).sort().pop();
+  gpRows(el, d.data.filter((r) => r.date === last), (r) => [[r.name, 'nw'], [AIT.fmt('', r.eps90), 'num', r.eps90], [AIT.fmt('', r.px90), 'num', r.px90], [AIT.fmt('', r.gap), 'num', r.gap],
+    [AIT.fmt('', r.rev_growth), 'num', r.rev_growth], [AIT.fmt('x', r.fpe), 'num'], [AIT.fmt('pct0', r.vol), 'num'], [`${r.rank} / ${r.universe}`, 'num'],
+    [r.flag, 'nw', null, r.flag === '正常' ? 'var(--color-ok)' : 'var(--color-warn)']], 'ticker');
+});
+dash.draw('gp-uni', (el) => {
+  const d = dash.data('gp_universe'); el.replaceChildren();
+  if (d.status !== 'ok') return;
+  gpRows(el, d.data, (r) => [[String(r.rank), 'num'], [r.name, 'nw'], [r.ticker, 'nw'], [d3.format('.1f')(r.score), 'num'], [AIT.fmt('', r.eps90), 'num', r.eps90], [AIT.fmt('', r.px90), 'num', r.px90],
+    [AIT.fmt('', r.rev_growth), 'num', r.rev_growth], [AIT.fmt('x', r.fpe), 'num'], [r.held, 'nw', null, r.held ? dash.colors[0] : null]], 'ticker');
+});
+dash.draw('gp-log', (el) => {
+  const d = dash.data('gp_log'); el.replaceChildren();
+  if (d.status !== 'ok') return;
+  gpRows(el, d.data.slice().sort((a, b) => b.date.localeCompare(a.date)), (r) => [[r.date, 'nw'], [r.action, 'nw'], [r.detail, 'wrap']]);
+});
+</script>
+
+<p class="cap" style="max-width:1180px;margin:24px auto 0;color:var(--color-fg-muted);font-size:12px">数据快照：2026年11月3日收盘（Yahoo Finance）。模型组合，不构成投资建议。</p>
+</div></body></html>
